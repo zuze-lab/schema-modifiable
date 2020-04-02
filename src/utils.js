@@ -24,14 +24,6 @@ export const merge = keys => (...objects) =>
     {}
   );
 
-// accepts paths and returns a function that accepts an object and returns an
-// object with the values at those paths
-export const keep = keys => object =>
-  keys.reduce((acc, k) => {
-    const existing = get(object, k);
-    return existing === undefined ? acc : set(acc, k, existing);
-  }, {});
-
 // keys reference expected array entities
 export const append = keys => (orig, next) =>
   keys.reduce((acc, k) => {
@@ -57,10 +49,9 @@ export const complexMerge = ({
       const val = get(acc, k);
       return val ? set(acc, k, from(val, context)) : acc;
     },
-    {
+    keeps.reduce((acc, k) => set(acc, k, get(state, k)), {
       ...deep(state, mod),
       ...merge(merges)(state, mod),
       ...append(appends)(state, mod),
-      ...keep(keeps)(state),
-    }
+    })
   );
