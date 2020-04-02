@@ -2,13 +2,12 @@ import { from, get, set } from '@zuze/interpolate';
 
 export const allKeys = (...objects) =>
   Array.from(
-    new Set(objects.reduce((acc, o) => [...acc, ...Object.keys(o)], []))
+    new Set(objects.reduce((acc, o) => acc.concat(Object.keys(o)), []))
   );
 
 export const deep = (state, mod) =>
   Object.entries(mod).reduce(
-    (acc, [key, val]) =>
-      get(acc, key) === val ? acc : set(acc, key, val, true),
+    (acc, [key, val]) => set(acc, key, val, true),
     state
   );
 
@@ -26,13 +25,10 @@ export const merge = keys => (...objects) =>
 
 // keys reference expected array entities
 export const append = keys => (orig, next) =>
-  keys.reduce((acc, k) => {
-    const o = get(orig, k);
-    const n = get(next, k);
-    // if neither object specifies the path, then skip
-    if (!o && !n) return acc;
-    return set(acc, k, [...(o || []), ...(n || [])]);
-  }, {});
+  keys.reduce(
+    (acc, k) => set(acc, k, get(orig, k, []).concat(get(next, k, []))),
+    {}
+  );
 
 // merges - objects will be merged
 // keeps - values will not be overridden

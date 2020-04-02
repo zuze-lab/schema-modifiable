@@ -21,15 +21,6 @@ describe('deep', () => {
     expect(result.field.hidden).toBe(true);
     expect(result.field.options[0].extra).toBe('fail');
   });
-
-  it('should return the same reference if the values are primitives and equal', () => {
-    const result = deep(state, {
-      'field.hidden': false,
-    });
-
-    expect(result).toBe(state);
-    expect(result).toEqual(state);
-  });
 });
 
 describe('complexMerge', () => {
