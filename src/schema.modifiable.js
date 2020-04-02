@@ -11,7 +11,13 @@ const dependencies = ({ when }) =>
     get(ctx, k)
   );
 
-const getModification = ({ when, then, otherwise }, context, how, state) => {
+const getModification = (
+  { when, then, otherwise },
+  context,
+  how,
+  state,
+  options
+) => {
   if (!then && !otherwise)
     throw new Error(`One of then or otherwise must be declared`);
 
@@ -21,7 +27,10 @@ const getModification = ({ when, then, otherwise }, context, how, state) => {
       shape,
     })),
     context,
-    { context: state }
+    {
+      ...options,
+      context: state,
+    }
   )
     ? then
     : otherwise;
@@ -36,15 +45,16 @@ const getModification = ({ when, then, otherwise }, context, how, state) => {
       state => how(state, what, context);
 };
 
-const schemaModifier = (modifier, how, state) => [
-  context => getModification(modifier, context, how, state),
+const schemaModifier = (modifier, how, state, options) => [
+  context => getModification(modifier, context, how, state, options),
   dependencies(modifier),
 ];
 
 export const schemaModifiable = (state, options = {}) => {
-  const { how = deep, ...rest } = options;
-  const createSchemaModifier = m => schemaModifier(m, how, state);
+  const { how = deep, context = {}, ...rest } = options;
+  const createSchemaModifier = m => schemaModifier(m, how, state, rest);
   const { modify, ...api } = modifiable(state, {
+    context,
     ...rest,
     modifiers: (rest.modifiers || []).map(createSchemaModifier),
   });

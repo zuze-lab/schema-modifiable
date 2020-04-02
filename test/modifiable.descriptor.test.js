@@ -13,7 +13,7 @@ const descriptor = {
     conditions: [
       {
         when: {
-          value: { tests: ['required', ['oneOf', { ref: '$field.options' }]] },
+          value: { tests: ['required', ['oneOf', { ref: '#field.options' }]] },
         },
         then: {
           when: { value: { tests: [['is', 'freddie']] } },
@@ -28,7 +28,7 @@ const descriptor = {
 
 describe('modifiable descriptor', () => {
   it('should work', () => {
-    const m = modifiableDescriptor(descriptor);
+    const m = modifiableDescriptor(descriptor, { contextPrefix: '#' });
     expect(m.getState().hint).toBe('select a value');
     m.setContext({ value: 'jim' });
     expect(m.getState().hint).toBe('boo, you only selected jim');
