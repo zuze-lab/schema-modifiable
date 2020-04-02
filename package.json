@@ -1,0 +1,51 @@
+{
+  "name": "@zuze/schema-modifiable",
+  "version": "0.1.0",
+  "description": "Declarative object/application state using schemas and modifiables",
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "sideEffects": false,
+  "files": [
+    "build"
+  ],
+  "homepage": "https://github.com/zuze-lab/schema-modifiable",
+  "scripts": {
+    "prepublishOnly": "yarn test && yarn build",
+    "build": "rimraf build && rollup -c",
+    "lint": "eslint src",
+    "test:ci": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "test": "jest"
+  },
+  "author": "Adam Jenkins",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.9.2",
+    "@zuze/interpolate": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@zuze/modifiable": "^5.0.0",
+    "@zuze/schema": "^2.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^6.0.0",
+    "@zuze/modifiable": "^2.0.0",
+    "@zuze/schema": "^2.1.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^25.1.0",
+    "coveralls": "^3.0.9",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^25.1.0",
+    "prettier": "^1.18.2",
+    "reselect": "^4.0.0",
+    "rollup": "^1.21.4",
+    "rollup-plugin-babel": "^4.3.3"
+  }
+}
