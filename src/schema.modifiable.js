@@ -40,7 +40,7 @@ const getModification = (
       identity
     : // if the what specifies a when, it's a nested condition :)
     what.when
-    ? getModification(what, context, how)
+    ? getModification(what, context, how, state, options)
     : // otherwise, modify
       state => how(state, what, context);
 };
@@ -51,12 +51,12 @@ const schemaModifier = (modifier, how, state, options) => [
 ];
 
 export const schemaModifiable = (state, options = {}) => {
-  const { how = deep, context = {}, ...rest } = options;
+  const { how = deep, context = {}, modifiers = [], ...rest } = options;
   const createSchemaModifier = m => schemaModifier(m, how, state, rest);
   const { modify, ...api } = modifiable(state, {
     context,
     ...rest,
-    modifiers: (rest.modifiers || []).map(createSchemaModifier),
+    modifiers: modifiers.map(createSchemaModifier),
   });
   return {
     modify: m => modify(...createSchemaModifier(m)),
