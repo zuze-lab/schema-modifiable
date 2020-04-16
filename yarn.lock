@@ -1118,9 +1118,9 @@
   integrity sha512-Z5UHpEdJDGV5vGOfm4Lwza0frKueuFeKj9S3CoF3regxmNS537tRehLYlAQtk59kUftAzhCg4a5GcyVnutXVSg==
 
 "@zuze/modifiable@^6.0.0":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@zuze/modifiable/-/modifiable-6.1.0.tgz#6cb3d0b46c43f0e88b5c8fc68790f5e4fcac9b8c"
-  integrity sha512-am44pIopKriID0jI/WbrIGMEi1KvBMfXLX2dWJsbdQVEEbWAoVrb8cU4ujSDsuIAHwgNvYLPV1ids1Nw1NpCGg==
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@zuze/modifiable/-/modifiable-6.1.2.tgz#00f6bca48e2d0421af87edc3290046aa24e82bc9"
+  integrity sha512-k6qXYres9qQlCJG4XAI7asXjXzM2RjoEK0zFkJ6V2JtLCzfxmG2BFS1p60pczOqSLOGBvIQcHFUCH6a1yjkcFw==
 
 "@zuze/schema@^2.1.0":
   version "2.1.0"
