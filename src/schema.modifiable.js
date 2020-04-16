@@ -7,9 +7,9 @@ const { matches } = ast;
 
 // get all dependencies from an array of whens
 const dependencies = ({ when }) =>
-  allKeys(...(Array.isArray(when) ? when : [when])).map(k => ctx =>
-    get(ctx, k)
-  );
+  allKeys
+    .apply(null, Array.isArray(when) ? when : [when])
+    .map(k => ctx => get(ctx, k));
 
 const getModification = (
   { when, then, otherwise },
@@ -27,10 +27,7 @@ const getModification = (
       shape,
     })),
     context,
-    {
-      ...options,
-      context: state,
-    }
+    Object.assign({ context: state }, options)
   )
     ? then
     : otherwise;
@@ -51,15 +48,16 @@ const schemaModifier = (modifier, how, state, options) => [
 ];
 
 export const schemaModifiable = (state, options = {}) => {
-  const { how = deep, context = {}, modifiers = [], ...rest } = options;
-  const createSchemaModifier = m => schemaModifier(m, how, state, rest);
-  const { modify, ...api } = modifiable(state, {
-    context,
-    ...rest,
-    modifiers: modifiers.map(createSchemaModifier),
+  const { how = deep, context = {}, modifiers = [] } = options;
+  const createSchemaModifier = m => schemaModifier(m, how, state, options);
+  const api = modifiable(
+    state,
+    Object.assign({ context }, options, {
+      modifiers: modifiers.map(createSchemaModifier),
+    })
+  );
+
+  return Object.assign({}, api, {
+    modify: m => api.modify.apply(api, createSchemaModifier(m)),
   });
-  return {
-    modify: m => modify(...createSchemaModifier(m)),
-    ...api,
-  };
 };

@@ -23,7 +23,6 @@ export default [
         customResolveOptions: { moduleDirectory: 'src' },
       }),
       babel({
-        plugins: ['@babel/transform-runtime'],
         presets: [
           [
             '@babel/preset-env',
