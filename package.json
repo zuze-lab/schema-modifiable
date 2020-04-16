@@ -1,6 +1,6 @@
 {
   "name": "@zuze/schema-modifiable",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Declarative object/application state using schemas and modifiables",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
