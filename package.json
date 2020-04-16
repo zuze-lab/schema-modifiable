@@ -22,7 +22,7 @@
     "@zuze/interpolate": "^6.0.0"
   },
   "peerDependencies": {
-    "@zuze/modifiable": "^6.0.0",
+    "@zuze/modifiable": "^6.1.0",
     "@zuze/schema": "^2.1.0"
   },
   "devDependencies": {
