@@ -21,12 +21,21 @@ const getModification = (
   if (!then && !otherwise)
     throw new Error(`One of then or otherwise must be declared`);
 
+  const shapes = Array.isArray(when) ? when : [when];
+  const against = shapes.reduce(
+    (acc, s) => ({
+      ...acc,
+      ...Object.keys(s).reduce(
+        (acc, key) => ({ ...acc, [key]: get(context, key) }),
+        {}
+      ),
+    }),
+    {}
+  );
+
   const what = matches(
-    (Array.isArray(when) ? when : [when]).map(shape => ({
-      schema: 'object',
-      shape,
-    })),
-    context,
+    shapes.map(shape => ({ schema: 'object', shape })),
+    against,
     Object.assign({ context: state }, options)
   )
     ? then
